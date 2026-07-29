@@ -4,13 +4,10 @@ import cors from "cors";
 import morgan from "morgan";
 import helmet from "helmet";
 import app from "./app.js"
-const result=dotenv.config();
-if(!result){
-    console.log("hello")
-}
+dotenv.config();
 
-const port = process.env.PORT;
-console.log(process.env.PORT)
+const port = process.env.PORT || 3000;
+
 app.use(cors());
 app.use(helmet());
 app.use(morgan("dev"));
