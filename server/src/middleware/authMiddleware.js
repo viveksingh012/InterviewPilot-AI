@@ -15,7 +15,7 @@ const authMiddleware = async(req,res,next)=>{
     if(!user){
        throw new apiError(404, "user not found")
     }
-    req.user=user.id;
+    req.user=user;
     next();
 }
 
