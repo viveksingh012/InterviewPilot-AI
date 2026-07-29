@@ -32,8 +32,8 @@ const login = async(req,res,next)=>{
     if(!isMatched){
        throw new apiError(400, "incorrect password")
     }
-    const accessToken=await generateaAccessToken(user.id)
-    const refreshToken=await generateRefreshToken(user.id)
+    const accessToken=await generateaAccessToken(user.id,user.role)
+    const refreshToken=await generateRefreshToken(user.id,user.role)
     await prisma.user.update({
         where:{
             id:user.id
@@ -80,8 +80,8 @@ const refresh_token = async(req,res,next)=>{
   if(user.refresh_token!=refreshToken){
    throw new apiError(404, "you are not login")
   }
-  const accessToken =await generateaAccessToken(user.id)
-  const NewrefreshToken =await generateRefreshToken(user.id)
+  const accessToken =await generateaAccessToken(user.id,user.role)
+  const NewrefreshToken =await generateRefreshToken(user.id,user.role)
   
     await prisma.user.update({
         where:{
@@ -114,7 +114,7 @@ const refresh_token = async(req,res,next)=>{
     })
 }
 const logout = async(req,res,next)=>{
-    const id=req.user;
+    const id=req.user.id;
     await prisma.user.update({
         where:{
             id:id

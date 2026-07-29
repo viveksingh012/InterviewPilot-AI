@@ -1,17 +1,19 @@
 import jwt from "jsonwebtoken";
 
-const generateaAccessToken=async(id)=>{
+const generateaAccessToken=async(id,role)=>{
     return await jwt.sign({
-        id:id
+        id:id,
+        role:role
     },
     process.env.ACCESS_TOKEN_SECRET,
     {
     expiresIn:"15m"
     })
 }
-const generateRefreshToken=async(id)=>{
+const generateRefreshToken=async(id,role)=>{
     return await jwt.sign({
-        id:id
+        id:id,
+        role:role
     },
     process.env.REFRESH_TOKEN_SECRET,
     {
