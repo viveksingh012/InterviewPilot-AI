@@ -35,4 +35,30 @@ model user{
   updatedAt     DateTime @updatedAt
 
   role  Role @default(USER)
+
+  interviews Interview[]
+}
+
+model Interview {
+  id           Int            @id @default(autoincrement())
+  title        String
+  company      String
+  role         String
+  description  String?
+  status       InterviewStatus   @default(PENDING)
+  scheduledAt  DateTime?
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  userId Int
+  user   user @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum InterviewStatus {
+  PENDING
+  READY
+  STARTED
+  COMPLETED
+  CANCELLED
 }
